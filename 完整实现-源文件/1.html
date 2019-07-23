@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todos</title>
+    <link rel="stylesheet" href="">
+    <style>
+ 
+        *{
+            padding:0;
+            margin:0;
+        }
+        .page-top{
+            position: fixed;
+            top:0;
+            left:0;
+            height: 40px;
+            background-color: #E8593D;
+            width:100%;
+            text-align: center;
+        }
+        .page-content{
+            color: #FFFFFF;
+            width: 70%;
+            margin-left: 15%;
+            line-height: 40px;
+            text-align: left;
+        }
+        .main{
+            margin-top: 40px;
+            margin-left: 15%;
+            width: 70%;
+            padding: 5px;
+        }
+        .main .task-input{
+            height:40px;
+            width:100%;
+            font-size: 20px;
+        }
+        .main ul li{
+            /*list-style-position: inside;*/
+            list-style-type: none;
+        }
+        .completed{
+            text-decoration:line-through;
+        }
+    </style>
+</head>
+<body>
+<div class="page-top">
+    <div class="page-content">
+        <h2>任务计划列表</h2>
+    </div>
+</div>
+<div class="main">
+    <h3 class="big-title">添加任务：</h3>
+    <input type="text" class="task-input" placeholder="例如：吃饭睡觉打豆豆； 提示：+回车即可添加任务" v-on:keyup.enter="addTodo(123,$event)" v-model="todo">
+    <ul class="task-count">
+        <li v-show="list.length">{{list.length}}个任务未完成</li>
+        <li class="action">
+            <a class="active" href="#">所有任务</a>
+            <a href="#">未完成的任务</a>
+            <a href="#">完成的任务</a>
+        </li>
+    </ul>
+    <h3 class="big-title">任务列表：</h3>
+    <div class="tasks">
+        <span class="no-task-tip" v-show="!list.length">还没有添加任何任务</span>
+        <ul class="todo-list">
+            <li class="todo" :class="{completed:item.isChecked}" v-for="item in list">
+                <div class="view">
+                    <input class="toggle" type="checkbox" v-model="item.isChecked">
+                    <label @dblclick="editorTodo(item)">{{item.title}}</label>
+                    <button class="destroy" v-on:click="deleteTodo(item)">x</button>
+                </div>
+                <input class="edit" type="text">
+            </li>
+        </ul>
+    </div>
+</div>
+    <script type="text/javascript" src="vue2.js"></script>
+    <script type="text/javascript">
+//        1 var list = [
+//             {
+//                 title: "吃饭睡觉打豆豆1",
+//                 isChecked: false
+//             },
+//             {
+//                 title: "吃饭睡觉打豆豆1",
+//                 isChecked: true
+//             },
+//         ];
+ 
+// new Vue({
+//     el: ".main",
+//     data: {
+//         list: list,
+//         todo: ""
+//     },
+//     methods: {
+//         addTodo(data,event) {
+//             //添加任务
+//             //向list中添加一项任务
+            
+//                 {
+//                     title:
+//                 }
+             
+//             console.log(event);
+//             //事件处理函数中的this指向的是当前的根实例
+//             // if(event.keyCode === 13){
+//                 this.list.push({
+//                     title: this.todo,
+//                     isChecked: false
+//                 });
+//             // }
+//             this.todo="";
+ 
+//         },
+//         deleteTodo(todo){
+//             var index = this.list.indexOf(todo);
+//             this.list.splice(index,1);
+//         },
+//         editorTodo(todo){//编辑任务
+ 
+//         }
+//     }
+// });
+
+function runAsync1(){
+    var p = new Promise(function(resolve, reject){
+        //做一些异步操作
+        resolve('数据1-------------------');
+    });
+    return p;            
+}
+function runAsync2(){
+    var p = new Promise(function(resolve, reject){
+        //做一些异步操作
+       resolve('数据2-------------------');
+    });
+    return p;            
+}
+function runAsync3(){
+    var p = new Promise(function(resolve, reject){
+        //做一些异步操作
+      resolve('数据3-------------------');
+    });
+    return p;            
+}
+
+runAsync1().then(function(data){
+    console.log("runAsync1:"+data);
+    return runAsync2();
+})
+.then(function(data){
+    console.log("runAsync2:"+data);
+    return runAsync3();  //这里直接返回数据
+})
+.then(function(data){
+    console.log('runAsync3:'+data);
+    return '直接返回数据'; 
+});
+
+
+</script>
+
+</body>
+</html>

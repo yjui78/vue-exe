@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8" /> 
+  <title>QQ菜单实例展开与收缩</title> 
+  <style>
+  *{margin:0;padding:0}
+ul,li{padding:0}
+.transfer-list{width:300px;border:1px solid #ccc;display:inline-block;height:300px;float:left}
+.transfer-list-body{height:100%;border-top:none;border-radius:0 0 6px 6px;position:relative;overflow:hidden}
+.transfer-list-content{height:100%;padding:4px  0;overflow:auto}
+.transfer-list-content-item{padding:7px 10px;clear:both;color:#495060;white-space:nowrap;list-style:none;cursor:pointer;transition:background .2s ease-in-out;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.transfer-operation{float:left;display:inline-block;overflow:hidden;margin:0 16px;vertical-align:middle;margin-top:120px}
+.transfer-header{background:#E6E5E4;line-height:40px;padding-left:10px}
+.transfer-operation input{padding:5px}
+</style> 
+
+</script>
+ </head> 
+ <body> 
+ <div class="transfer" id='app'>
+     <div class="transfer-list">
+         <div class="transfer-header">
+             <input type="checkbox" name="">
+             <span class="transfer-header-title">源列表</span>
+             <span class="transfer-header-count">6/10</span>
+         </div>
+         <div class="transfer-listd-body">
+             <ul class="transfer-list-content">
+                 <li class="transfer-list-content-item" v-for='item in listData.originData'>
+                     <input type="checkbox" name="" >
+                     <span>{{item.title}}</span>
+                 </li>
+             </ul>  
+         </div>
+     </div>
+     <div class="transfer-operation">
+         <p style="margin-bottom: 10px;"><input type="button" name="" value="<" disabled/></p>
+         <p><input type="button" name="" value=">" disabled/></p>
+     </div>
+     <div class="transfer-list">
+         <div class="transfer-header">
+             <input type="checkbox" name="">
+             <span class="transfer-header-title"> 目标列表</span>
+             <span class="transfer-header-count">5/6</span>
+         </div>
+         <div class="transfer-list-body">
+             <ul class="tranfer-list-content">
+                 <li class="transfer-list-content-item"  v-for = 'item in listData.targetData'>
+                     <input type="checkbox" name="" >
+                     <span>{{item.title}}</span>
+                 </li>
+             </ul>
+         </div>
+     </div>
+ </div>
+ <script type="text/javascript" src="vue2.js"></script>
+<script>
+let  listData = {
+        originData:[//源列表
+            {
+                id:1000,
+                title:'js课程',
+                checked:false
+            },
+            {
+                id:1101,
+                title:'css课程',
+                checked:false
+            },
+            {
+                id:1002,
+                title:'vue课程',
+                checked:false
+            },
+        ],
+        targetData:[//目标列表
+            {
+                id:105660,
+                title:'Node课程',
+                checked:true
+            },
+            {
+                id:11088881,
+                title:'canvas课程',
+                checked:true
+            }
+        ]
+}
+var vm = new Vue({
+    el:'#app',
+    data:{
+        listData:listData
+        
+    }
+})
+console.log(vm.originData)
+</script>
+ </body>
+</html>
