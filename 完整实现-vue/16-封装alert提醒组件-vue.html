@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>16-封装alert提醒组件</title>
+	<title>封装alert提醒组件</title>
 	<style type="text/css">
 .m-alert{position:relative;width:50%;padding:8px 16px;margin:0;box-sizing:border-box;border-radius:4px;position:relative;    background-color: #50bfff;overflow:hidden;color:#fff;display:table;transition:opacity .2s;margin-top:10px;border:1px solid #ccc}
 .m-content{display:table-cell;padding:0 8px}
@@ -25,9 +25,10 @@
 <div id="app">
 	<!-- closeable传值判断X显隐，showicon传值判断图标显隐,不传走默认-->
 	<m-alert type='warning' title='这是一个警告' 
-	v-bind:closeable='false'
+	
 	v-bind:showicon='true'
-	style='background-color:pink;'
+	style='background-color:pink;' 
+	@close-click = 'close'
 	></m-alert>
 	<m-alert type='error' title='错误了，请重写'>
 		<template slot='titleTmp'>
@@ -39,11 +40,11 @@
 			<p >这是定制模板</p>
 			<p >这是定制模板</p>
 		</template>
-		
+
 		<!-- 定制自己的图标 -->
 		<i slot='iconTmp' class="m-icon m-icon-message"></i>
 	</m-alert>
-	<m-alert type='info' title='这是一个默认信息'></m-alert>
+	<m-alert v-bind:closeable='false' type='info' title='这是一个默认信息'></m-alert>
 	<m-alert type='success' title='恭喜你，成功了'></m-alert>
 	<!-- 不传默认info -->
 	<m-alert></m-alert>
@@ -66,11 +67,12 @@
 					slot为titleTmp 定制提示信息结构
  
 				监控状态变化：
-					事件名close-click   点击关闭X触发
+					事件名close-click   点击关闭X触发 ，使用的组件上加	@close-click = 'close'
  
 			*/
 
 			/*
+			封装alert提醒组件再自定义组件内的东西，随意更改替换样式，文本，按钮等
 
 				知识点：
 				1、用props接收组件中传来的值，
@@ -79,9 +81,10 @@
 					表示字符串这样写：closeable='false'  这里closeable为Boolean类型, 
 					要布尔值这样写：  v-bind:closeable='false'
 				2、v-if用在true/false显示隐藏中，这里判断closeable、showicon显隐用到
-				3、style自定义样式，不用已有的,这里会报错，网上说使用vue版本的问题
+				3、style自定义样式，不用已有的,这里会报错，网上说使用vue版本的问题vue2.2.0好使，其他不好使
 				4、假如提示的内容很多或不想用span标签，想用p标签，可以定制用slot
-				5、假如提供的图标太少了，想自己定制
+				5、假如提供的图标太少了，想自己定制用slot
+				6、点击X时外层methods监测到,组件内用this.$emit
 
 
 			*/
@@ -126,15 +129,25 @@
 					<span class="m-message">{{title}}</span>
 				</slot>
 					
-					<i v-if='closeable' class="m-closebtn m-icon-close">X</i>
+					<i v-if='closeable' class="m-closebtn m-icon-close" @click='closeHandle'>X</i>
 				</div>
 			</div>
-   		`
+   		`,
+   		methods:{
+   			closeHandle(){
+   				this.$emit('close-click')
+   			}
+   		}
    	})
 	new Vue({
 		el:'#app',
 		data:{
 
+		},
+		methods:{
+			close(){
+				alert('点击了X')
+			}
 		}
 	})
 </script>

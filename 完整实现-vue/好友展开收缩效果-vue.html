@@ -61,7 +61,7 @@ var vm = new Vue({
     },
     methods:{
       tab(index){
-        //已经记录值设为空
+        //已经记录值设为空,点击相同标题时
         console.log("this.currentIndex:"+this.currentIndex);
         console.log("index:"+index);
         this.currentIndex = this.currentIndex === index?'':index;
